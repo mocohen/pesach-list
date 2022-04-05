@@ -1,0 +1,44 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- <link type= "text/css" href="css/bootstrap.min.css" rel="stylesheet">
+ --><link type= "text/css" href= "{{ url_for('static',filename='styles/grid.css') }}" rel="stylesheet">
+</head>
+   <body >
+
+
+
+    <a class="btn btn-primary" href="{{ url_for('upload_file') }}" role="button">Upload another image</a>
+
+    <h1> Text Recognition matched ingredients </h1>
+        <p class="lead"> 
+        Please check each ingredient to make sure it matches properly.
+    </p>
+{% if filename %}
+    <div>
+        <img src="{{ url_for('display_upload', filename=filename) }}" width="300">
+    </div>
+{% endif %}
+
+
+
+    <div class="container">
+        <div class="row" id="mycol">            
+            <div class="col-1 col-even">Image</div>
+            <div class="col-sm col-even" >Image Text</div>
+            <div class="col-sm col-odd">Match 1 (score)</div>
+            <div class="col-sm col-even">Match 2 (score)</div>
+            <div class="col-sm col-odd">Match 3 (score)</div>
+        </div>
+
+        {% for row in x %}
+            <div class="row" id="mycol" >
+              <div class="col-1 col-even"><img width="75" src="{{ url_for('display_crop', filename=row[0]) }}"></div>
+              <div class="col-sm col-even">{{ row[1] }}</div>
+              <div class="col-sm col-odd">{{ row[2][0] }} ({{ row[2][1] }})</div>
+              <div class="col-sm col-even">{{ row[3][0] }} ({{ row[3][1] }})</div>
+              <div class="col-sm col-odd">{{ row[4][0] }} ({{ row[4][1] }})</div>
+              </div>
+        {% endfor %}
+    </div>
+</html>
